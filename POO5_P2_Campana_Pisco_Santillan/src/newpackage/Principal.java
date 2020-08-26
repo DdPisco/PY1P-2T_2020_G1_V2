@@ -10,5 +10,6 @@ package newpackage;
  * @author Dustin Pisco
  */
 public class Principal {
-    
+    String prueba;
+ 
 }
