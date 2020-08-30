@@ -11,5 +11,6 @@ package Aplicacion;
  */
 public class Principal {
     int prueba;
+    String prueba1;
  
 }
