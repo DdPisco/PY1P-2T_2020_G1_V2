@@ -68,17 +68,19 @@ public class ventanaPedido {
 
       //Personalizacion de la tabla de Opciones
       HBox contenedor = new HBox(100);
-      Label descripcion = new Label("Descripcion");descripcion.setStyle("-fx-font-weight: bold;");descripcion.setPadding(new Insets(10,10,10,10));
-      Label  precio = new Label("Precio");precio.setStyle("-fx-font-weight: bold;");precio.setPadding(new Insets(10,10,10,10));
-      Label  cantidad = new Label("Cantidad");cantidad.setStyle("-fx-font-weight: bold;");cantidad.setPadding(new Insets(10,10,10,10));
-      Label espaciado = new Label("        ");espaciado.setPadding(new Insets(10,10,10,10));
+      Label descripcion = new Label("Descripcion");descripcion.setStyle("-fx-font-weight: bold;");
+      Label  precio = new Label("Precio");precio.setStyle("-fx-font-weight: bold;");
+      Label  cantidad = new Label("Cantidad");cantidad.setStyle("-fx-font-weight: bold;");
+      Label espaciado = new Label("        ");
       tablaOpciones.add(descripcion, 0, 0);
       tablaOpciones.add(precio, 1, 0);
       tablaOpciones.add(cantidad, 2, 0);
+      tablaOpciones.setHgap(5);
+      tablaOpciones.setVgap(5);
       GridPane totalpedido = new GridPane(); totalpedido.setStyle("-fx-background-color:gray ;-fx-grid-lines-visible: true");
-      Label lb1 = new Label("Descripcion");lb1.setStyle("-fx-font-weight: bold;");lb1.setPadding(new Insets(5,10,10,10));lb1.setTextFill(Color.WHITE);
-      Label lb2 = new Label("Cantidad");lb2.setStyle("-fx-font-weight: bold;");lb2.setPadding(new Insets(5,20,10,20));lb2.setTextFill(Color.WHITE);
-      Label lb3 = new Label("Valor");lb3.setStyle("-fx-font-weight: bold;");lb3.setPadding(new Insets(5,30,10,30));lb3.setTextFill(Color.WHITE);
+      Label lb1 = new Label("Descripcion");lb1.setStyle("-fx-font-weight: bold;");/*lb1.setPadding(new Insets(5,10,10,10))*/;lb1.setTextFill(Color.WHITE);
+      Label lb2 = new Label("Cantidad");lb2.setStyle("-fx-font-weight: bold;");/*lb2.setPadding(new Insets(5,20,10,20))*/;lb2.setTextFill(Color.WHITE);
+      Label lb3 = new Label("Valor");lb3.setStyle("-fx-font-weight: bold;");/*lb3.setPadding(new Insets(5,30,10,30))*/;lb3.setTextFill(Color.WHITE);
       totalpedido.add(lb1, 0, 0);
       totalpedido.add(lb2, 1, 0);
       totalpedido.add(lb3, 2, 0);
