@@ -5,6 +5,7 @@
  */
 package Aplicacion;
 
+import disenio_y_funciones.ventanaPedido;
 import disenio_y_funciones.ventanaPrincipal;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -20,9 +21,11 @@ public class Principal extends Application {
 
     @Override
     public void start(Stage salida) throws Exception {
-        ventanaPrincipal sal = new ventanaPrincipal(salida);
+        ventanaPedido sal = new ventanaPedido(salida);
+        //sal.getScene().getStylesheets().add(ventanaPrincipal.class.getResource("ventanaPrincipal.css").toExternalForm());
         salida.setScene(sal.getScene());
         salida.setTitle("Pagina de Inicio");
+        
         salida.show();
     }
 
