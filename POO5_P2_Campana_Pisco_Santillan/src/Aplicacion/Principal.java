@@ -5,6 +5,7 @@
  */
 package Aplicacion;
 
+import disenio_y_funciones.ventanaGracias;
 import disenio_y_funciones.ventanaPedido;
 import disenio_y_funciones.ventanaPrincipal;
 import disenio_y_funciones.ventanaPago;
@@ -22,7 +23,7 @@ public class Principal extends Application {
 
     @Override
     public void start(Stage salida) throws Exception {
-        ventanaPago sal = new ventanaPago(salida);
+        ventanaPrincipal sal = new ventanaPrincipal(salida);
         //sal.getScene().getStylesheets().add(ventanaPrincipal.class.getResource("ventanaPrincipal.css").toExternalForm());
         salida.setScene(sal.getScene());
         salida.setTitle("Pagina de Inicio");

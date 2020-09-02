@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -69,10 +70,16 @@ public class ventanaPrincipal {
         ingresar.setStyle("-fx-background-color:orange;-fx-text-fill:black;-fx-font-weight:bold");
         ultFila.getChildren().addAll(repartidor,ingresar,burger);
         
-        arbol.setStyle("-fx-background-color:white");
+        //arbol.setStyle("-fx-background-color:white");
         arbol.getChildren().addAll(cajatitulo,datos,ultFila);
         arbol.setPadding(new Insets(80,50,50,50));
+        arbol.setStyle("-fx-background-image:Imagenes/I5.png)");
+        /*Esto es lo que debe aparecer luego del ingreso
         
+        arbol.
+        
+        
+        */
         
         escena1 = new Scene(arbol,750,500);
         return escena1;    
