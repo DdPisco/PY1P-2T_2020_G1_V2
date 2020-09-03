@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -32,17 +33,26 @@ public class ventanaMapa {
     public void mostrarVentanaMapa(){
         
         Stage mapa=new Stage();
-//        Image imagen=new Image("imagenes/burgerB.jpg");
-//        ImageView imMapa = new ImageView(new Image("imagenes/burgerB.jpg"));
-        root.setStyle("-fx-background-image:url(/imagenes/mapa2.png)");
-        
-        Scene scene = new Scene(root,100 , 100);
+        root=new Pane();
+        root.setStyle("-fx-background-image: url(/Imagenes/mapa2.png);-fx-background-size: 750px,500px;-fx-background-repeat: no-repeat no-repeat;");
+  
+        Scene scene = new Scene(root,750, 500);
         
         mapa.setTitle("mapa");
         mapa.setScene(scene);
         mapa.show();
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public ArrayList<local> leerArchivo(){
         ArrayList<local> locales=new ArrayList();
         try ( BufferedReader bf = new BufferedReader(new FileReader("src/recursos/locales.txt"))) {

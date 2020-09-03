@@ -26,11 +26,12 @@ import javafx.stage.Stage;
 public class ventanaPedido {
     private Stage escenario;
     private Scene escena1;
-    public ventanaPedido(Stage escenario){
-        this.escenario = escenario;
-
-    }
-    public Scene getScene() throws Exception{
+//    public ventanaPedido(Stage escenario){
+//        this.escenario = escenario;
+//
+//    }
+    public void getScene() {
+        Stage pedido=new Stage();
       VBox arbol=new VBox(20);
       HBox tipoOrden = new HBox(150);
       tipoOrden.setAlignment(Pos.CENTER);
@@ -48,6 +49,7 @@ public class ventanaPedido {
       HBox tipo = new HBox(30);
       Label lbtipo = new Label("Tipo:"); lbtipo.setStyle("-fx-font-weight: bold;");
       ComboBox optipo = new ComboBox();
+      optipo.getItems().addAll("Piqueos","Platos Fuertes","Postres","Bebidas");
       tipo.getChildren().addAll(lbtipo,optipo);
       //Creacion de la caja de Ordenar por
       HBox orden = new HBox(10);
@@ -108,6 +110,8 @@ public class ventanaPedido {
       arbol.getChildren().addAll(Titulo,tipoOrden,OpcionesPedido,contenedor,cuentatotal,btns);
       arbol.setPadding(new Insets (50,30,30,30));
       escena1 = new Scene(arbol,750,500);
-      return escena1;
+      pedido.setTitle("pedido");
+      pedido.setScene(escena1);
+      pedido.show();
     }
 }
