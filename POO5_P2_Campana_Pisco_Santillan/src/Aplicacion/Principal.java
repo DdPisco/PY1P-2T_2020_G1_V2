@@ -24,7 +24,7 @@ public class Principal extends Application {
     @Override
     public void start(Stage salida) throws Exception {
         ventanaPrincipal sal = new ventanaPrincipal(salida);
-        //sal.getScene().getStylesheets().add(ventanaPrincipal.class.getResource("ventanaPrincipal.css").toExternalForm());
+        sal.getScene().getStylesheets().add(ventanaPrincipal.class.getResource("ventanaPrincipal.css").toExternalForm());
         salida.setScene(sal.getScene());
         salida.setTitle("Pagina de Inicio");
         
