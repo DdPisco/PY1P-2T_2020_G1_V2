@@ -60,6 +60,9 @@ public class ventanaPrincipal {
         Contrasenia.setAlignment(Pos.CENTER);
         VBox datos = new VBox(30);
         datos.getChildren().addAll(Usuario,Contrasenia);
+        String datoUsuario = TxtCajaUsuario.getText();
+        String datoPswd = TxtCajaPswd.getText();
+        
         
         HBox ultFila =  new HBox(75);
         ultFila.setAlignment(Pos.CENTER);
@@ -71,10 +74,12 @@ public class ventanaPrincipal {
         burger.setFitWidth(140);
         burger.setFitHeight(140);
         Button ingresar = new Button("Ingresar");
+        in
         ingresar.setStyle("-fx-background-color:orange;-fx-text-fill:black;-fx-font-weight:bold");
         ultFila.getChildren().addAll(repartidor,ingresar,burger);
         ingresar.setOnAction(e->escenario.setScene(crearEscena2()));
-         
+        ingresar.setOnAction(e->escenario.setScene(escena2));
+        
         arbol.setStyle("-fx-background-color:white");
         arbol.getChildren().addAll(cajatitulo,datos,ultFila);
         arbol.setPadding(new Insets(80,50,50,50));
