@@ -5,6 +5,9 @@
  */
 package disenio_y_funciones;
 
+
+import javafx.application.Platform;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,6 +22,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -68,19 +72,19 @@ public class ventanaPrincipal {
         
         HBox ultFila =  new HBox(75);
         ultFila.setAlignment(Pos.CENTER);
-        ImageView repartidor = new ImageView(new Image("imagenes/delivery.png"));
+        ImageView repartidor = new ImageView(new Image("Imagenes/delivery.png"));
         repartidor.setFitHeight(180);
         repartidor.setFitWidth(200);
         
-        ImageView burger = new ImageView(new Image("imagenes/burger.png"));
+        ImageView burger = new ImageView(new Image("Imagenes/burger.png"));
         burger.setFitWidth(140);
         burger.setFitHeight(140);
         Button ingresar = new Button("Ingresar");
-        
+
         ingresar.setStyle("-fx-background-color:orange;-fx-text-fill:black;-fx-font-weight:bold");
         ultFila.getChildren().addAll(repartidor,ingresar,burger);
         ingresar.setOnAction(e->escenario.setScene(crearEscena2()));
-        ingresar.setOnAction(e->escenario.setScene(escena2));
+        //ingresar.setOnAction(e->escenario.setScene(escena2));
         
         arbol.setStyle("-fx-background-color:white");
         arbol.getChildren().addAll(cajatitulo,datos,ultFila);
@@ -89,21 +93,24 @@ public class ventanaPrincipal {
         escena1 = new Scene(arbol,750,500);
         return escena1;    
     }
+    
+    
+    
+    
+    
+    
     public Scene crearEscena2(){
         HBox ventanaBi=new HBox(100);
-        /*ImageView hamburguesa = new ImageView(new Image("imagenes/burgerB.jpg"));
-        hamburguesa.setFitHeight(500);
-        hamburguesa.setFitWidth(300);*/
-        ventanaBi.setStyle("-fx-background-image: url(/Imagenes/I5.png);-fx-background-size:840px;-fx-background-repeat:no-repeat no-repeat;");
+        ventanaBi.setStyle("-fx-background-image: url(/Imagenes/I5.jpg);-fx-background-size:750,500;-fx-background-repeat:no-repeat no-repeat;");
         
         VBox bienvenida=new VBox(50);
         
         
         VBox topBi=new VBox(20);
-        Text TituloA = new Text("Bienvenid@ veronica");
+        Text TituloA = new Text("Bienvenid@");
         TituloA.setStyle( "-fx-font-size: 32px;-fx-font-family:Arial Black;-fx-font-weight: bold;");
         TituloA.setFill(Color.ORANGE);
-        Text TituloB = new Text("elige la opcion que prefieras");
+        Text TituloB = new Text("Elige la opcion que prefieras");
         TituloB.setStyle( "-fx-font-size: 15px;-fx-font-family:Arial Black;-fx-font-weight: bold;");
         TituloB.setFill(Color.WHITE);
         topBi.setAlignment(Pos.CENTER);
@@ -135,9 +142,17 @@ public class ventanaPrincipal {
         
         bienvenida.getChildren().addAll(topBi,inferiorBi);
         ventanaBi.getChildren().addAll(bienvenida);
-        ventanaBi.setStyle("-fx-background-color:black");
         ventanaBi.setPadding(new Insets(20,50,50,50));
+        
+        encuentra.setOnAction(new EventHandler <ActionEvent>(){
+            @Override
+            public void handle(ActionEvent t) {
+                ventanaMapa m= new ventanaMapa();
+                m.mostrarVentanaMapa();
+                }
+        });
 
+        
         escena2 =new Scene(ventanaBi,750,500);
         return escena2;
     }

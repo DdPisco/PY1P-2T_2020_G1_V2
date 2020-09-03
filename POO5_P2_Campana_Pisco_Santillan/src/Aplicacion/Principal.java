@@ -11,7 +11,9 @@ import disenio_y_funciones.ventanaPedido;
 import disenio_y_funciones.ventanaPrincipal;
 import disenio_y_funciones.ventanaPago;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -26,8 +28,10 @@ public class Principal extends Application {
     @Override
     public void start(Stage salida) {
         window=salida;
-        salida.setTitle("The Good Burger");
+        salida.setTitle("The Good Burger Restaurant APP");
         ventanaPrincipal sal = new ventanaPrincipal(salida);
+        salida.getIcons().add(new Image("/Imagenes/icon.jpg"));
+        salida.initStyle(StageStyle.DECORATED);
         window.setScene(sal.getScene());
         window.show();
     }
