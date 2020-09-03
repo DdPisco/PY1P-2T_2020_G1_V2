@@ -97,6 +97,7 @@ public class ventanaPrincipal {
     }
     public Scene crearEscena2(){
         HBox ventanaBi=new HBox(100);
+        ventanaBi.setStyle("-fx-background-image: url(/imagenes/I5.png);-fx-background-size: 750px,500px;-fx-background-repeat: no-repeat no-repeat;");
         ImageView hamburguesa = new ImageView(new Image("imagenes/burgerB.jpg"));
         hamburguesa.setFitHeight(500);
         hamburguesa.setFitWidth(300);
@@ -127,21 +128,23 @@ public class ventanaPrincipal {
         pedido.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent arg0) {
-               ventanaPedido vp = new ventanaPedido(escenario);           
-                try {
-                    escenario.setScene(vp.getScene());
-                } catch (Exception ex) {
-                    System.out.println("Ha ocurrido  un error");
-                    System.out.println(ex);
-                }
+                ventanaPedido p=new ventanaPedido();
+                p.getScene();
+//               ventanaPedido vp = new ventanaPedido(escenario);           
+//                try {
+//                    escenario.setScene(vp.getScene());
+//                } catch (Exception ex) {
+//                    System.out.println("Ha ocurrido  un error");
+//                    System.out.println(ex);
+//                }
             }
 
         });
         inferiorBi.getChildren().addAll(encuentra,pedido);
         
         bienvenida.getChildren().addAll(topBi,inferiorBi);
-        ventanaBi.getChildren().addAll(bienvenida,hamburguesa);
-        ventanaBi.setStyle("-fx-background-color:black");
+        ventanaBi.getChildren().addAll(bienvenida);
+        //ventanaBi.setStyle("-fx-background-color:black");
         ventanaBi.setPadding(new Insets(20,50,50,50));
         
         encuentra.setOnAction(new EventHandler <ActionEvent>(){

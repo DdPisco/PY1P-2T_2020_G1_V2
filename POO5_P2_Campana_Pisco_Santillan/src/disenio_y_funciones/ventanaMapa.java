@@ -35,6 +35,10 @@ public class ventanaMapa {
 //        Image imagen=new Image("imagenes/burgerB.jpg");
 //        ImageView imMapa = new ImageView(new Image("imagenes/burgerB.jpg"));
         //root.setStyle("-fx-background-image:url(/imagenes/mapa2.png)");
+        root=new Pane();
+        root.setStyle("-fx-background-image: url(/imagenes/mapa2.png);-fx-background-size: 750px,500px;-fx-background-repeat: no-repeat no-repeat;");
+        Label l =new Label("hola");
+        root.getChildren().add(l);
         
         
         
@@ -49,8 +53,7 @@ public class ventanaMapa {
         
         
         
-        
-        Scene scene = new Scene(root,100 , 100);
+        Scene scene = new Scene(root,750, 500);
         
         mapa.setTitle("mapa");
         mapa.setScene(scene);
