@@ -5,6 +5,8 @@
  */
 package disenio_y_funciones;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -74,7 +76,7 @@ public class ventanaPrincipal {
         burger.setFitWidth(140);
         burger.setFitHeight(140);
         Button ingresar = new Button("Ingresar");
-        in
+        
         ingresar.setStyle("-fx-background-color:orange;-fx-text-fill:black;-fx-font-weight:bold");
         ultFila.getChildren().addAll(repartidor,ingresar,burger);
         ingresar.setOnAction(e->escenario.setScene(crearEscena2()));
@@ -83,21 +85,16 @@ public class ventanaPrincipal {
         arbol.setStyle("-fx-background-color:white");
         arbol.getChildren().addAll(cajatitulo,datos,ultFila);
         arbol.setPadding(new Insets(80,50,50,50));
-        //arbol.setStyle("-fx-background-image:url(/imagenes/repartidor.gif)");
-        /*Esto es lo que debe aparecer luego del ingreso
-        
-        arbol.
-        */
         
         escena1 = new Scene(arbol,750,500);
         return escena1;    
     }
     public Scene crearEscena2(){
         HBox ventanaBi=new HBox(100);
-        ImageView hamburguesa = new ImageView(new Image("imagenes/burgerB.jpg"));
+        /*ImageView hamburguesa = new ImageView(new Image("imagenes/burgerB.jpg"));
         hamburguesa.setFitHeight(500);
-        hamburguesa.setFitWidth(300);
-        
+        hamburguesa.setFitWidth(300);*/
+        ventanaBi.setStyle("-fx-background-image: url(/Imagenes/I5.png);-fx-background-size:840px;-fx-background-repeat:no-repeat no-repeat;");
         
         VBox bienvenida=new VBox(50);
         
@@ -137,7 +134,7 @@ public class ventanaPrincipal {
         inferiorBi.getChildren().addAll(encuentra,pedido);
         
         bienvenida.getChildren().addAll(topBi,inferiorBi);
-        ventanaBi.getChildren().addAll(bienvenida,hamburguesa);
+        ventanaBi.getChildren().addAll(bienvenida);
         ventanaBi.setStyle("-fx-background-color:black");
         ventanaBi.setPadding(new Insets(20,50,50,50));
 
