@@ -1,0 +1,13 @@
+descripcion,precio,tipo
+Hamburguesa simple,5.00,F
+tiramisu,4.00,P
+coca cola400ml,2.00,B
+cheese fingers x5,3.00,Q
+Hamburguesa doble,6.00,F
+torta chocolate,4.50,P
+hotdog,3.00,F
+cheesecake,4.00,P
+sprite 400ml,2.50,B
+fanta 400ml,2.50,B
+nachos,3.00,Q
+canguil,3.00,Q
