@@ -5,6 +5,9 @@
  */
 package disenio_y_funciones;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -122,7 +126,16 @@ public class ventanaPrincipal {
         ventanaBi.getChildren().addAll(bienvenida,hamburguesa);
         ventanaBi.setStyle("-fx-background-color:black");
         ventanaBi.setPadding(new Insets(20,50,50,50));
+        
+        encuentra.setOnAction(new EventHandler <ActionEvent>(){
+            @Override
+            public void handle(ActionEvent t) {
+                ventanaMapa m= new ventanaMapa();
+                m.mostrarVentanaMapa();
+                }
+        });
 
+        
         escena2 =new Scene(ventanaBi,750,500);
         return escena2;
     }

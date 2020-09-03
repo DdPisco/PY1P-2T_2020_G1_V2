@@ -13,11 +13,11 @@ public class local {
     private String nombre;
     private String direccion;
     private String horario;
-    private int coordenadaX;
-    private int coordenadaY;
+    private double coordenadaX;
+    private double coordenadaY;
     
     public local(String nombre,String direccion,String horario,
-            int cordenadax,int cordenaday){
+            double cordenadax,double cordenaday){
         this.nombre=nombre;
         this.direccion=direccion;
         this.horario=horario;
@@ -42,13 +42,13 @@ public class local {
     public void setHorario(String horario){
         this.horario=horario;
     }
-    public int getCoordenadaX(){
+    public double getCoordenadaX(){
         return coordenadaX;
     }
     public void setCoordenadaX(int coordenada){
         this.coordenadaX=coordenada;
     }
-    public int getCoordenadaY(){
+    public double getCoordenadaY(){
         return coordenadaY;
     }
     public void setCoordenadaY(int coordenada){
