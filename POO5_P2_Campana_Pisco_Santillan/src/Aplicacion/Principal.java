@@ -17,18 +17,20 @@ import javafx.stage.Stage;
  * @author Dustin Pisco
  */
 public class Principal extends Application {
+    Stage window;
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage salida) throws Exception {
+    public void start(Stage salida) {
+        window=salida;
         ventanaPrincipal sal = new ventanaPrincipal(salida);
-        sal.getScene().getStylesheets().add(ventanaPrincipal.class.getResource("ventanaPrincipal.css").toExternalForm());
-        salida.setScene(sal.getScene());
-        salida.setTitle("Pagina de Inicio");
-        
-        salida.show();
+//        sal.getScene().getStylesheets().add(ventanaPrincipal.class.getResource("ventanaPrincipal.css").toExternalForm());
+//        salida.setScene(sal.getScene());
+        window.setScene(sal.getScene());
+        //window.setTitle("Switch Scenes");
+        window.show();
     }
 
 }
