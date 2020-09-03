@@ -121,6 +121,19 @@ public class ventanaPrincipal {
         pedido.setStyle("-fx-background-color:orange;-fx-text-fill:black;-fx-font-weight:bold");
         pedido.setMaxSize(300, 10);
         pedido.setTextAlignment(TextAlignment.CENTER);
+        pedido.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent arg0) {
+               ventanaPedido vp = new ventanaPedido(escenario);           
+                try {
+                    escenario.setScene(vp.getScene());
+                } catch (Exception ex) {
+                    System.out.println("Ha ocurrido  un error");
+                    System.out.println(ex);
+                }
+            }
+
+        });
         inferiorBi.getChildren().addAll(encuentra,pedido);
         
         bienvenida.getChildren().addAll(topBi,inferiorBi);
