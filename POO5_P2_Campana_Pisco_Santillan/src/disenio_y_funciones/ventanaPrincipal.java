@@ -66,7 +66,7 @@ public class ventanaPrincipal {
         datos.getChildren().addAll(Usuario,Contrasenia);
         String datoUsuario = TxtCajaUsuario.getText();
         String datoPswd = TxtCajaPswd.getText();
-        
+        cliente uno = new cliente(datoUsuario, datoPswd, null, null);
         
         HBox ultFila =  new HBox(75);
         ultFila.setAlignment(Pos.CENTER);
