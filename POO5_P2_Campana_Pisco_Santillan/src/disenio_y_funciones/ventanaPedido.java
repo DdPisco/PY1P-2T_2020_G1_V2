@@ -5,7 +5,16 @@
  */
 package disenio_y_funciones;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,7 +28,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import modelo.Tipo;
+import modelo.Comida;
+
 
 /**
  *
@@ -28,6 +38,7 @@ import modelo.Tipo;
 public class ventanaPedido {
     private Stage escenario;
     private Scene escena1;
+    VBox tablaOpciones = new VBox();
 //    public ventanaPedido(Stage escenario){
 //        this.escenario = escenario;
 //
@@ -37,7 +48,7 @@ public class ventanaPedido {
       VBox arbol=new VBox(20);
       HBox tipoOrden = new HBox(150);
       tipoOrden.setAlignment(Pos.CENTER);
-      GridPane tablaOpciones = new GridPane();
+      
       HBox OpcionesPedido= new HBox(300);
 
       //Estilo de Titulo
@@ -50,10 +61,38 @@ public class ventanaPedido {
       //Creacion de la caja de Tipo de Plato
       HBox tipo = new HBox(30);
       Label lbtipo = new Label("Tipo:"); lbtipo.setStyle("-fx-font-weight: bold;");
-      ComboBox<Tipo> optipo = new ComboBox();
-      optipo.setItems(FXCollections.observableArrayList(Tipo.CargarTipos()));
+      ComboBox optipo = new ComboBox();
+      optipo.getItems().addAll("Piqueos","Platos Fuertes","Postres","Bebidas");   
       tipo.getChildren().addAll(lbtipo,optipo);
-      
+      System.out.print(optipo.getValue());
+      optipo.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent t) {
+                
+                if(optipo.getValue().equals("Piqueos")){
+                    try(BufferedReader bf = new BufferedReader(new FileReader("src/recursos/menu.txt"))){
+                        String linea ;
+                        while ((linea= bf.readLine())!= null){
+                            String p[] = linea.split(",");
+                            if(p[2].equals(tipo)){
+                    //.add(new Comida(p[0],Integer.valueOf(p[1]),tipo));
+                } 
+            }
+        }catch(FileNotFoundException ex){
+            System.out.print("No se encontro el archivo menu");
+        }catch (IOException ex){
+            System.out.print("Se ha producido un error");
+        }
+                }if(optipo.getValue().equals("Platos Fuertes")){
+                  
+                }if(optipo.getValue().equals("Postres")){
+                  
+            }if(optipo.getValue().equals("Bebidas")){
+                
+            }
+            }
+          
+      });
       //Creacion de la caja de Ordenar por
       HBox orden = new HBox(10);
       Label lborden = new Label("Ordenar por:"); lborden.setStyle("-fx-font-weight: bold;");
@@ -73,28 +112,49 @@ public class ventanaPedido {
       TxtPedido.setStyle("-fx-font-weight:bold;-fx-font-size: 18px");
       OpcionesPedido.getChildren().addAll(TxtOpciones,TxtPedido);
 
+      
+      
 
       //Personalizacion de la tabla de Opciones
-      HBox contenedor = new HBox(100);
-      Label descripcion = new Label("Descripcion");descripcion.setStyle("-fx-font-weight: bold;");
-      Label  precio = new Label("Precio");precio.setStyle("-fx-font-weight: bold;");
-      Label  cantidad = new Label("Cantidad");cantidad.setStyle("-fx-font-weight: bold;");
-      Label espaciado = new Label("        ");
-      tablaOpciones.add(descripcion, 0, 0);
-      tablaOpciones.add(precio, 1, 0);
-      tablaOpciones.add(cantidad, 2, 0);
-      tablaOpciones.setHgap(5);
-      tablaOpciones.setVgap(5);
-      GridPane totalpedido = new GridPane(); totalpedido.setStyle("-fx-background-color:gray ;-fx-grid-lines-visible: true");
-      Label lb1 = new Label("Descripcion");lb1.setStyle("-fx-font-weight: bold;");/*lb1.setPadding(new Insets(5,10,10,10))*/;lb1.setTextFill(Color.WHITE);
-      Label lb2 = new Label("Cantidad");lb2.setStyle("-fx-font-weight: bold;");/*lb2.setPadding(new Insets(5,20,10,20))*/;lb2.setTextFill(Color.WHITE);
-      Label lb3 = new Label("Valor");lb3.setStyle("-fx-font-weight: bold;");/*lb3.setPadding(new Insets(5,30,10,30))*/;lb3.setTextFill(Color.WHITE);
-      totalpedido.add(lb1, 0, 0);
-      totalpedido.add(lb2, 1, 0);
-      totalpedido.add(lb3, 2, 0);
-      contenedor.getChildren().addAll(tablaOpciones, totalpedido);
+      Label lb1 = new Label("Descripcion");lb1.setStyle("-fx-font-weight: bold;");
+      Label  lb2 = new Label("Precio");lb2.setStyle("-fx-font-weight: bold;");
+      Label  lb3 = new Label("Cantidad");lb3.setStyle("-fx-font-weight: bold;");
+      HBox detalles =new HBox(25);
+      optipo.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent t) {
+                
+                if(optipo.getValue().equals("Piqueos")){
+                   
+                }if(optipo.getValue().equals("Platos Fuertes")){
+                  
+                }if(optipo.getValue().equals("Postres")){
+                  
+            }
+            }
+          
+      });
+      detalles.getChildren().addAll(lb1,lb2,lb3);
+      
+      
+      
+      
+      
+      GridPane totalpedido = new GridPane(); 
+      totalpedido.setStyle("-fx-background-color:gray ;-fx-grid-lines-visible: true");
+      Label lb4 = new Label("Descripcion");lb4.setStyle("-fx-font-weight: bold;");//lb4.setTextFill(Color.WHITE);
+      Label lb5= new Label("Cantidad");lb5.setStyle("-fx-font-weight: bold;");//lb5.setTextFill(Color.WHITE);
+      Label lb6 = new Label("Valor");lb6.setStyle("-fx-font-weight: bold;");//lb6.setTextFill(Color.WHITE);
+      HBox detalles2 =new HBox(5);
+      detalles2.getChildren().addAll(lb4,lb5,lb6);
+      
+      HBox contenedor = new HBox(150);
+      contenedor.getChildren().addAll(detalles,detalles2);
+      
+      
+     
 
-       //Creacion de la caja de Cuentatotal (Dolares)
+      //Creacion de la caja de Cuentatotal (Dolares)
       VBox cuentatotal = new VBox();
       Text txtsbt = new Text("Subtotal:");txtsbt.setFill(Color.ORANGE);txtsbt.setStyle("-fx-font-weight:bold;-fx-font-size: 18px;-fx-set-text-fill: orange");
       Text txtiva = new Text("IVA:");txtiva.setFill(Color.ORANGE);txtiva.setStyle("-fx-font-weight:bold;-fx-font-size: 18px;-fx-set-text-fill: orange");
@@ -104,12 +164,19 @@ public class ventanaPedido {
       cuentatotal.setPadding(new Insets(0,100,0,0));
       tipoOrden.getChildren().addAll(tipo,orden);
       
+      
+      
+      
       //Botones
       HBox btns = new HBox(10);
       Button continuar = new Button("Continuar");continuar.setStyle("-fx-background-color:orange;-fx-text-fill:black;");
       Button limpiar = new Button("Limpiar");limpiar.setStyle("-fx-background-color:orange;-fx-text-fill:black;");
       btns.getChildren().addAll(continuar,limpiar);
       btns.setAlignment(Pos.CENTER);
+      
+      
+      
+      
       
       //Agregacion de todos los objetos al contenedor princial
       arbol.setStyle("-fx-background-color:white");
@@ -120,4 +187,7 @@ public class ventanaPedido {
       pedido.setScene(escena1);
       pedido.show();
     }
-}
+    
+        
+    }
+

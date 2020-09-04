@@ -18,9 +18,9 @@ import java.util.ArrayList;
 public class Comida implements Comparable<Comida>{
     private String descripcion;
     private Double precio;
-    private Tipo tipo;
+    private char tipo;
     
-    public Comida(String descripcion,double precio,Tipo tipo){
+    public Comida(String descripcion,double precio,char tipo){
         this.descripcion=descripcion;
         this.precio=precio;
         this.tipo=tipo;
@@ -37,10 +37,10 @@ public class Comida implements Comparable<Comida>{
     public void setPrecio(double precio){
         this.precio=precio;
     }
-    public Tipo getTipo(){
+    public char getTipo(){
         return tipo;
     }
-    public void setTipo(Tipo tipo){
+    public void setTipo(char tipo){
         this.tipo=tipo;
     }
 
@@ -49,13 +49,13 @@ public class Comida implements Comparable<Comida>{
         return 0;
         
     }
-    public static ArrayList<Comida> CargarMenu(Tipo tipo){
+    public static ArrayList<Comida> CargarMenu(char tipo){
          ArrayList <Comida> Menu = new ArrayList();
         try(BufferedReader bf = new BufferedReader(new FileReader("src/recursos/menu.txt"))){
             String linea ;
             while ((linea= bf.readLine())!= null){
                 String p[] = linea.split(",");
-                if(p[2].equals(tipo.getCode())){
+                if(p[2].equals(tipo)){
                     Menu.add(new Comida(p[0],Integer.valueOf(p[1]),tipo));
                 } 
             }
@@ -66,4 +66,5 @@ public class Comida implements Comparable<Comida>{
         }
         return Menu;
     }
+    
 }

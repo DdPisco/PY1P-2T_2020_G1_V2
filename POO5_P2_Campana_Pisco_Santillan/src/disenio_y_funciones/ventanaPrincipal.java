@@ -134,6 +134,7 @@ public class ventanaPrincipal {
             @Override
             public void handle(ActionEvent arg0) {
                 ventanaPedido p=new ventanaPedido();
+               
                 p.getScene();
                 
             }
