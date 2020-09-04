@@ -145,12 +145,11 @@ public class ventanaPrincipal {
             }
         });
         inferiorBi.getChildren().addAll(encuentra,pedido);
-        
         bienvenida.getChildren().addAll(topBi,inferiorBi);
         ventanaBi.getChildren().addAll(bienvenida);
-
         ventanaBi.setPadding(new Insets(20,50,50,50));
         
+        //Programacion del boton Encontrar Local 
         encuentra.setOnAction(new EventHandler <ActionEvent>(){
             @Override
             public void handle(ActionEvent t) {

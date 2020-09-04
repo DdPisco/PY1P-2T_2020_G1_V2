@@ -55,8 +55,12 @@ public class ventanaPedido {
       HBox orden = new HBox(10);
       Label lborden = new Label("Ordenar por:"); lborden.setStyle("-fx-font-weight: bold;");
       ComboBox oporden = new ComboBox();
+      oporden.getItems().addAll("Precio","A-Z","Z-A");
       orden.getChildren().addAll(lborden,oporden);
-
+      
+      //oporden.setEditable(false);
+      
+      
 
       //Linea de Texto de opciones y pedidos
       Text TxtOpciones = new Text("Opciones");
