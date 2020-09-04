@@ -135,13 +135,7 @@ public class ventanaPrincipal {
             public void handle(ActionEvent arg0) {
                 ventanaPedido p=new ventanaPedido();
                 p.getScene();
-//               ventanaPedido vp = new ventanaPedido(escenario);           
-//                try {
-//                    escenario.setScene(vp.getScene());
-//                } catch (Exception ex) {
-//                    System.out.println("Ha ocurrido  un error");
-//                    System.out.println(ex);
-//                }
+                
             }
         });
         inferiorBi.getChildren().addAll(encuentra,pedido);

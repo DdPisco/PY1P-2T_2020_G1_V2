@@ -1,4 +1,3 @@
-descripcion,precio,tipo
 Hamburguesa simple,5.00,F
 tiramisu,4.00,P
 coca cola400ml,2.00,B

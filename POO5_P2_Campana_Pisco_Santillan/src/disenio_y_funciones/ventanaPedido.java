@@ -5,6 +5,7 @@
  */
 package disenio_y_funciones;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import modelo.Tipo;
 
 /**
  *
@@ -48,9 +50,10 @@ public class ventanaPedido {
       //Creacion de la caja de Tipo de Plato
       HBox tipo = new HBox(30);
       Label lbtipo = new Label("Tipo:"); lbtipo.setStyle("-fx-font-weight: bold;");
-      ComboBox optipo = new ComboBox();
-      optipo.getItems().addAll("Piqueos","Platos Fuertes","Postres","Bebidas");
+      ComboBox<Tipo> optipo = new ComboBox();
+      optipo.setItems(FXCollections.observableArrayList(Tipo.CargarTipos()));
       tipo.getChildren().addAll(lbtipo,optipo);
+      
       //Creacion de la caja de Ordenar por
       HBox orden = new HBox(10);
       Label lborden = new Label("Ordenar por:"); lborden.setStyle("-fx-font-weight: bold;");
@@ -58,7 +61,6 @@ public class ventanaPedido {
       oporden.getItems().addAll("Precio","A-Z","Z-A");
       orden.getChildren().addAll(lborden,oporden);
       
-      //oporden.setEditable(false);
       
       
 

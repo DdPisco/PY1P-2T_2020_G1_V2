@@ -1,0 +1,4 @@
+Q=Piqueo
+F=Platos Fuertes
+P=Postres
+B=Bebidas
