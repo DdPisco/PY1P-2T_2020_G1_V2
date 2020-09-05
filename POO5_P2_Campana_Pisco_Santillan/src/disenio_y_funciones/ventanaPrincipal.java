@@ -6,6 +6,9 @@
 package disenio_y_funciones;
 
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
@@ -40,6 +43,7 @@ public class ventanaPrincipal {
     private Scene escena1;
     private Scene escena2;
     private TextField CajaUsuario;
+    private cliente usuario;
     public ventanaPrincipal(Stage escenario){
         this.escenario = escenario;
        
@@ -133,10 +137,17 @@ public class ventanaPrincipal {
         pedido.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent arg0) {
-                ventanaPedido p=new ventanaPedido();
-               
-                p.getScene();
-                
+                ;
+                ventanaPedido p = null;
+                try {
+                    p = new ventanaPedido(usuario);
+                    escenario.setScene(new Scene(p.getRoot()));
+                } catch (IOException ex) {
+                    Logger.getLogger(ventanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (Exception ex) {                    
+            System.out.println("Ha ocurrido  un error");
+                    System.out.println(ex);
+                }
             }
         });
         inferiorBi.getChildren().addAll(encuentra,pedido);

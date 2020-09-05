@@ -10,10 +10,13 @@ import disenio_y_funciones.ventanaMapa;
 import disenio_y_funciones.ventanaPedido;
 import disenio_y_funciones.ventanaPrincipal;
 import disenio_y_funciones.ventanaPago;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import javafx.stage.StageStyle;
+import modelo.cliente;
 
 /**
  *
@@ -23,6 +26,12 @@ public class Principal extends Application {
     Stage window;
     public static void main(String[] args) {
         launch(args);
+    ArrayList<cliente> cl = new ArrayList<>();
+    cl.add(new cliente("vduarte","veronica1","Veronica","Samanes4, mz12, villa4"));
+    cl.add(new cliente("cluzardo","CristinaL","Bianca","Ceibos, mz5, villa1"));
+    cl.add(new cliente("dZambrano","Damian96","Damian","Portete y la 29"));
+    cl.add(new cliente("jbriones","Juan23","Juan","Suburbio, calle 28 y la h"));
+        System.out.println(cl);
     }
 
     @Override

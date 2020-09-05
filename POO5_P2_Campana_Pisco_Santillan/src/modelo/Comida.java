@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -17,54 +18,75 @@ import java.util.ArrayList;
  */
 public class Comida implements Comparable<Comida>{
     private String descripcion;
-    private Double precio;
+    private double precio;
     private char tipo;
-    
-    public Comida(String descripcion,double precio,char tipo){
-        this.descripcion=descripcion;
-        this.precio=precio;
-        this.tipo=tipo;
+    private int cantidad;
+    private double valor;
+    private DecimalFormat df = new DecimalFormat("####0.00");
+
+    public Comida(String descripcion, double precio, char tipo, int cantidad) {
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.tipo = tipo;
+        this.cantidad = cantidad;
+        this.valor = Double.valueOf(df.format(cantidad * precio));
     }
-    public String getDescripcion(){
+
+    public Comida(String descripcion, double precio, char tipo) {
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.tipo = tipo;
+    }
+
+    public String getDescripcion() {
         return descripcion;
     }
-    public void setDescripcion(String desc){
-        this.descripcion=desc;
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-    public double getPrecio(){
+
+    public double getPrecio() {
         return precio;
     }
-    public void setPrecio(double precio){
-        this.precio=precio;
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
-    public char getTipo(){
+
+    public char getTipo() {
         return tipo;
     }
-    public void setTipo(char tipo){
-        this.tipo=tipo;
+
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+        setValor(cantidad*precio);
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return descripcion;
     }
 
     @Override
     public int compareTo(Comida o) {
-        return 0;
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public static ArrayList<Comida> CargarMenu(char tipo){
-         ArrayList <Comida> Menu = new ArrayList();
-        try(BufferedReader bf = new BufferedReader(new FileReader("src/recursos/menu.txt"))){
-            String linea ;
-            while ((linea= bf.readLine())!= null){
-                String p[] = linea.split(",");
-                if(p[2].equals(tipo)){
-                    Menu.add(new Comida(p[0],Integer.valueOf(p[1]),tipo));
-                } 
-            }
-        }catch(FileNotFoundException ex){
-            System.out.print("No se encontro el archivo menu");
-        }catch (IOException ex){
-            System.out.print("Se ha producido un error");
-        }
-        return Menu;
-    }
-    
+
 }

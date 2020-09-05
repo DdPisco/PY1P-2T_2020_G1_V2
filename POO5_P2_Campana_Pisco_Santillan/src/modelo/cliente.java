@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 package modelo;
-
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 /**
  *
  * @author Lenovo
@@ -46,5 +52,26 @@ public class cliente {
     public void setDireccion(String dir){
         this.direccion=dir;
     }
+
+    public String toString(){
+        return nombre;
+    }
     
+
+    public ArrayList<cliente> leerArchivo(){
+         ArrayList<cliente> clientes=new ArrayList();
+        
+        try ( BufferedReader bf = new BufferedReader(new FileReader("src/recursos/clientes.txt"))) {
+             String linea;
+             while ((linea = bf.readLine()) != null) {
+                 String p[] = linea.split(",");
+                clientes.add(new cliente (p[0],p[1],p[2],p[3]));
+         }
+        } catch (IOException | NullPointerException ex) {
+             System.out.println(ex.getMessage());
+         }
+         
+         return clientes;
+     }
+
 }

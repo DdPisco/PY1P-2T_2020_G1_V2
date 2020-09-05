@@ -21,173 +21,267 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import modelo.Comida;
+import modelo.cliente;
+import modelo.local;
+import modelo.pedido;
 
 
-/**
- *
- * @author Lenovo
- */
+
 public class ventanaPedido {
-    private Stage escenario;
-    private Scene escena1;
-    VBox tablaOpciones = new VBox();
-//    public ventanaPedido(Stage escenario){
-//        this.escenario = escenario;
-//
-//    }
-    public void getScene() {
-        Stage pedido=new Stage();
-      VBox arbol=new VBox(20);
-      HBox tipoOrden = new HBox(150);
-      tipoOrden.setAlignment(Pos.CENTER);
-      
-      HBox OpcionesPedido= new HBox(300);
 
-      //Estilo de Titulo
-      StackPane titulo = new StackPane();
-      Text Titulo = new Text("Realice su pedido");
-      Titulo.setStyle("-fx-font-size: 28px;-fx-font-family:Arial Black;-fx-font-weight: bold;");
-      Titulo.setFill(Color.ORANGE);
+    private VBox root;
+    private Label titulo;
+    private HBox seccionCombos;
+    private HBox seccionBotones;
+    private HBox seccionOpcionPedido;
+    private VBox seccionValores;
+    private VBox opciones;
+    private cliente usuario;
+    private pedido pedido;
+    private ArrayList<Comida> listaComida;
+    private TableView tPedido;
+    private Button continuar;
+    private Button limpiar;
+    private Label vSubtotal;
+    private Label vIVA;
+    private Label vTotal;
 
 
-      //Creacion de la caja de Tipo de Plato
-      HBox tipo = new HBox(30);
-      Label lbtipo = new Label("Tipo:"); lbtipo.setStyle("-fx-font-weight: bold;");
-      ComboBox optipo = new ComboBox();
-      optipo.getItems().addAll("Piqueos","Platos Fuertes","Postres","Bebidas");   
-      tipo.getChildren().addAll(lbtipo,optipo);
-      System.out.print(optipo.getValue());
-      optipo.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
+    public ventanaPedido(cliente usuario) throws IOException {
+        root = new VBox();
+        seccionBotones = new HBox();
+        seccionCombos = new HBox();
+        seccionOpcionPedido = new HBox();
+        seccionValores = new VBox();
+        //valores = new VBox();
+        listaComida= new ArrayList<>();
+        opciones = new VBox();
+        titulo = new Label("Realice su pedido");
+        titulo.setFont(new Font("Arial", 30));
+        tPedido = new TableView();
+        continuar = new Button("Continuar");
+        limpiar = new Button("Limpiar");
+        vSubtotal = new Label("0.00");
+        vIVA = new Label("0.00");
+        vTotal = new Label("0.00");
+        this.usuario= usuario;
+        cargarComida(Archivos.leerArchivos("src/recursos/menu.txt"));
+    }
+
+    public VBox getRoot() {
+        crearSeccionCombo();
+        crearSeccionValores();
+        crearOpcionPedido();
+        crearSeccionBotones();
+        root.setSpacing(10);
+        root.getChildren().addAll(titulo, seccionCombos, seccionOpcionPedido, seccionBotones);
+        root.setPadding(new Insets(20, 20, 20, 20));
+
+        return root;
+    }
+
+    public void crearSeccionCombo() {
+        HBox izquierda = new HBox();
+        HBox derecha = new HBox();
+        ComboBox cbxTipo = new ComboBox();
+        ComboBox cbxOrdenarPor = new ComboBox();
+        cbxTipo.getItems().addAll("Platos Fuertes", "Postres", "Bebidas", "Piqueos");
+
+        cbxTipo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent t) {
-                
-                if(optipo.getValue().equals("Piqueos")){
-                    try(BufferedReader bf = new BufferedReader(new FileReader("src/recursos/menu.txt"))){
-                        String linea ;
-                        while ((linea= bf.readLine())!= null){
-                            String p[] = linea.split(",");
-                            if(p[2].equals(tipo)){
-                    //.add(new Comida(p[0],Integer.valueOf(p[1]),tipo));
-                } 
+            public void handle(ActionEvent e) {
+
+                mostrarOpciones(cbxTipo.getValue().toString());
             }
-        }catch(FileNotFoundException ex){
-            System.out.print("No se encontro el archivo menu");
-        }catch (IOException ex){
-            System.out.print("Se ha producido un error");
+        });
+
+        izquierda.getChildren().addAll(new Label("Tipo:"), cbxTipo);
+        derecha.getChildren().addAll(new Label("Ordenar por:"), cbxOrdenarPor);
+        izquierda.setAlignment(Pos.CENTER_LEFT);
+        derecha.setAlignment(Pos.CENTER_LEFT);
+        seccionCombos.getChildren().addAll(izquierda, derecha);
+        seccionCombos.setSpacing(300);
+        seccionCombos.setAlignment(Pos.CENTER_LEFT);
+
+    }
+
+    public void crearOpcionPedido() {
+        //Seccion OPCION
+        VBox izquierda = new VBox();
+        Label head1 = new Label("Opciones");
+        head1.setFont(new Font("Arial", 15));
+        HBox campos = new HBox();
+        campos.setSpacing(50);
+        Label descrip = new Label("Descripcion");
+        descrip.setPrefWidth(80);
+        Label precio = new Label("Precio");
+        precio.setPrefWidth(35);
+        precio.setAlignment(Pos.CENTER);
+        Label cantidad = new Label("Cantidad");
+        cantidad.setPrefWidth(50);
+        campos.getChildren().addAll(descrip, precio, cantidad);
+        izquierda.setSpacing(10);
+        izquierda.getChildren().addAll(head1, campos, opciones);
+
+        //Seccion PEDIDO
+        VBox derecha = new VBox();
+
+        Label head2 = new Label("Pedido");
+        head2.setFont(new Font("Arial", 15));
+
+        TableColumn descripcion = new TableColumn("Descripcion");
+        descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        descripcion.setPrefWidth(150);
+
+        TableColumn cant = new TableColumn("Cantidad");
+        cant.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        cant.setPrefWidth(80);
+
+        TableColumn valor = new TableColumn("Valor");
+        valor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        valor.setPrefWidth(100);
+
+        tPedido.getColumns().addAll(descripcion, cant, valor);
+        tPedido.setPrefWidth(315);
+
+        derecha.setAlignment(Pos.CENTER_RIGHT);
+        derecha.getChildren().addAll(tPedido, seccionValores);
+        seccionOpcionPedido.setSpacing(100);
+        seccionOpcionPedido.getChildren().addAll(izquierda, derecha);
+    }
+
+    public void crearSeccionBotones() {
+
+        seccionBotones.setAlignment(Pos.CENTER);
+        seccionBotones.setSpacing(25);
+        seccionBotones.getChildren().addAll(continuar, limpiar);
+
+        //CONTINUAR
+        continuar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                ArrayList<Comida> it = new ArrayList<>();
+                double subtotal = 0;
+                for (Object o : tPedido.getItems()) {
+                    Comida i = (Comida) o;
+                    subtotal += i.getValor();
+                    it.add(i);
+                }
+                pedido = new pedido(it, subtotal);
+                System.out.println(pedido);
+            }
+        });
+
+        //LIMPIAR
+        limpiar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+
+                for (Object o : opciones.getChildren()) {
+                    HBox fila = (HBox) o;
+                    TextField c = (TextField) fila.getChildren().get(2);
+                    c.setText("");
+                }
+                tPedido.getItems().clear();
+                vSubtotal.setText("0.00");
+                vTotal.setText("0.00");
+                vIVA.setText("0.00");
+            }
+        });
+
+    }
+
+    public void cargarComida(ArrayList<String> data) {
+        for (String d : data) {
+            String[] datos = d.split(",");
+            listaComida.add(new Comida(datos[0], Double.valueOf(datos[1]), datos[2].charAt(0)));
         }
-                }if(optipo.getValue().equals("Platos Fuertes")){
-                  
-                }if(optipo.getValue().equals("Postres")){
-                  
-            }if(optipo.getValue().equals("Bebidas")){
-                
-            }
-            }
-          
-      });
-      //Creacion de la caja de Ordenar por
-      HBox orden = new HBox(10);
-      Label lborden = new Label("Ordenar por:"); lborden.setStyle("-fx-font-weight: bold;");
-      ComboBox oporden = new ComboBox();
-      oporden.getItems().addAll("Precio","A-Z","Z-A");
-      orden.getChildren().addAll(lborden,oporden);
-      
-      
-      
-
-      //Linea de Texto de opciones y pedidos
-      Text TxtOpciones = new Text("Opciones");
-      TxtOpciones.setFill(Color.ORANGE);
-      TxtOpciones.setStyle("-fx-font-weight:bold;-fx-font-size: 18px");
-      Text TxtPedido = new Text("Pedido");
-      TxtPedido.setFill(Color.ORANGE);
-      TxtPedido.setStyle("-fx-font-weight:bold;-fx-font-size: 18px");
-      OpcionesPedido.getChildren().addAll(TxtOpciones,TxtPedido);
-
-      
-      
-
-      //Personalizacion de la tabla de Opciones
-      Label lb1 = new Label("Descripcion");lb1.setStyle("-fx-font-weight: bold;");
-      Label  lb2 = new Label("Precio");lb2.setStyle("-fx-font-weight: bold;");
-      Label  lb3 = new Label("Cantidad");lb3.setStyle("-fx-font-weight: bold;");
-      HBox detalles =new HBox(25);
-      optipo.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent t) {
-                
-                if(optipo.getValue().equals("Piqueos")){
-                   
-                }if(optipo.getValue().equals("Platos Fuertes")){
-                  
-                }if(optipo.getValue().equals("Postres")){
-                  
-            }
-            }
-          
-      });
-      detalles.getChildren().addAll(lb1,lb2,lb3);
-      
-      
-      
-      
-      
-      GridPane totalpedido = new GridPane(); 
-      totalpedido.setStyle("-fx-background-color:gray ;-fx-grid-lines-visible: true");
-      Label lb4 = new Label("Descripcion");lb4.setStyle("-fx-font-weight: bold;");//lb4.setTextFill(Color.WHITE);
-      Label lb5= new Label("Cantidad");lb5.setStyle("-fx-font-weight: bold;");//lb5.setTextFill(Color.WHITE);
-      Label lb6 = new Label("Valor");lb6.setStyle("-fx-font-weight: bold;");//lb6.setTextFill(Color.WHITE);
-      HBox detalles2 =new HBox(5);
-      detalles2.getChildren().addAll(lb4,lb5,lb6);
-      
-      HBox contenedor = new HBox(150);
-      contenedor.getChildren().addAll(detalles,detalles2);
-      
-      
-     
-
-      //Creacion de la caja de Cuentatotal (Dolares)
-      VBox cuentatotal = new VBox();
-      Text txtsbt = new Text("Subtotal:");txtsbt.setFill(Color.ORANGE);txtsbt.setStyle("-fx-font-weight:bold;-fx-font-size: 18px;-fx-set-text-fill: orange");
-      Text txtiva = new Text("IVA:");txtiva.setFill(Color.ORANGE);txtiva.setStyle("-fx-font-weight:bold;-fx-font-size: 18px;-fx-set-text-fill: orange");
-      Text txttotal = new Text("Total:");txttotal.setFill(Color.ORANGE);txttotal.setStyle("-fx-font-weight:bold;-fx-font-size: 18px;-fx-set-text-fill: orange");
-      cuentatotal.getChildren().addAll(txtsbt,txtiva,txttotal);
-      cuentatotal.setAlignment(Pos.CENTER_RIGHT);
-      cuentatotal.setPadding(new Insets(0,100,0,0));
-      tipoOrden.getChildren().addAll(tipo,orden);
-      
-      
-      
-      
-      //Botones
-      HBox btns = new HBox(10);
-      Button continuar = new Button("Continuar");continuar.setStyle("-fx-background-color:orange;-fx-text-fill:black;");
-      Button limpiar = new Button("Limpiar");limpiar.setStyle("-fx-background-color:orange;-fx-text-fill:black;");
-      btns.getChildren().addAll(continuar,limpiar);
-      btns.setAlignment(Pos.CENTER);
-      
-      
-      
-      
-      
-      //Agregacion de todos los objetos al contenedor princial
-      arbol.setStyle("-fx-background-color:white");
-      arbol.getChildren().addAll(Titulo,tipoOrden,OpcionesPedido,contenedor,cuentatotal,btns);
-      arbol.setPadding(new Insets (50,30,30,30));
-      escena1 = new Scene(arbol,750,500);
-      pedido.setTitle("pedido");
-      pedido.setScene(escena1);
-      pedido.show();
-    }
-    
-        
     }
 
+    public void mostrarOpciones(String tipo) {
+        ArrayList<Comida> seleccion = new ArrayList<>();
+        opciones.getChildren().clear();
+        char cod;
+        switch (tipo) {
+            case "Platos Fuertes":
+                cod = 'F';
+                break;
+            case "Postres":
+                cod = 'P';
+                break;
+            case "Bebidas":
+                cod = 'B';
+                break;
+            case "Piqueos":
+                cod = 'Q';
+                break;
+            default:
+                cod = ' ';
+        }
+        for (Comida i : listaComida) {
+            if (cod == i.getTipo()) {
+                seleccion.add(i);
+            }
+        }
+        for (Comida i : seleccion) {
+            HBox fila = new HBox();
+            fila.setSpacing(50);
+            Label descripcion = new Label(i.getDescripcion());
+            descripcion.setPrefWidth(80);
+            Label precio = new Label(String.valueOf(i.getPrecio()));
+            precio.setPrefWidth(35);
+            precio.setAlignment(Pos.CENTER);
+            TextField cantidad = new TextField();
+            cantidad.setPrefWidth(50);
+            Button agregar = new Button("Agregar");
+            agregar.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent t) {
+                    i.setCantidad(Integer.valueOf(cantidad.getText()));
+                    tPedido.getItems().add(i);
+                    double st = 0;
+                    for (Object o : tPedido.getItems()) {
+                        Comida i = (Comida) o;
+                        st += i.getValor();
+                    }
+                    vSubtotal.setText(String.valueOf(st));
+                    vIVA.setText(String.valueOf(st * 0.12));
+                    vTotal.setText(String.valueOf((st * 0.12) + st));
+                }
+            });
+            fila.getChildren().addAll(descripcion, precio, cantidad, agregar);
+            opciones.getChildren().add(fila);
+            opciones.setSpacing(5);
+        }
+    }
+
+    public void crearSeccionValores() {
+        HBox hbSubtotal = new HBox();
+        HBox hbIVA = new HBox();
+        HBox hbTotal = new HBox();
+
+        Label lbSubtotal = new Label("Subtotal: ");
+        Label lbIVA = new Label("IVA: ");
+        Label lbTotal = new Label("Total: ");
+        hbSubtotal.getChildren().addAll(lbSubtotal, vSubtotal);
+        hbIVA.getChildren().addAll(lbIVA, vIVA);
+        hbTotal.getChildren().addAll(lbTotal, vTotal);
+        seccionValores.getChildren().addAll(hbSubtotal, hbIVA, hbTotal);
+
+    }
+
+   
+} 
